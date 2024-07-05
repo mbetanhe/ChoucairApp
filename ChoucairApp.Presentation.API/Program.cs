@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ChoucairApp.Infrastructure.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ChoucairApp.Presentation.API.Middlewares;
 
 namespace ChoucairApp.Presentation.API
 {
@@ -22,19 +23,24 @@ namespace ChoucairApp.Presentation.API
             var builder = WebApplication.CreateBuilder(args);
 
             #region servicios
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            builder.Services.AddProblemDetails();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ChoucairDbContext>();
             builder.Services.AddServicesFromApplication();
             builder.Services.AddServicesFromInfrastructure(builder.Configuration);
+            builder.Services.AddSeedBdFromInfrastructure();
             #endregion
 
             #region JWT
             builder.Services.Configure<JWTSettings>(builder.Configuration.GetSection("JWT"));
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ChoucairDbContext>();
+            builder.Services.AddScoped<IApplicationDbContextSeed, ApplicationDbContextSeed>();
             builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
 
                 .AddJwtBearer(o =>
@@ -74,7 +80,7 @@ namespace ChoucairApp.Presentation.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-
+            app.UseExceptionHandler();
             app.MapControllers();
 
             app.Run();

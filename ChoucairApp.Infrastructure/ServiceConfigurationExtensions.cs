@@ -20,6 +20,11 @@ namespace ChoucairApp.Infrastructure
             //services.AddScoped<IApplicationDbContextSeed, ApplicationDbContextSeed>();
         }
 
+        public static void AddSeedBdFromInfrastructure(this IServiceCollection services)
+        {
+            services.AddScoped<IApplicationDbContextSeed, ApplicationDbContextSeed>();
+        }
+
 
     }
 }

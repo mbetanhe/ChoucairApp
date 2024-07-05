@@ -11,9 +11,9 @@ namespace ChoucairApp.Infrastructure.Data
     public class ApplicationDbContextSeed : IApplicationDbContextSeed
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IdentityRole _identityRole;
+        private readonly RoleManager<IdentityRole> _identityRole;
 
-        public ApplicationDbContextSeed(UserManager<ApplicationUser> userManager, IdentityRole identityRole) => (_userManager, _identityRole) = (userManager, identityRole);
+        public ApplicationDbContextSeed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> identityRole) => (_userManager, _identityRole) = (userManager, identityRole);
 
         public async Task SeedEssentialsAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
