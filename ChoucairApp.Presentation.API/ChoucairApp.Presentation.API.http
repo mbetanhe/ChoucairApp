@@ -1,0 +1,6 @@
+@ChoucairApp.Presentation.API_HostAddress = http://localhost:5199
+
+GET {{ChoucairApp.Presentation.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
