@@ -26,7 +26,7 @@ el frontend esta construido bajo Angular 17 utilizando NodeJS 20.15 LTS y NPM 10
 ### Instalación 🔧
 
 El proyecto tiene la posibilidad de ejecutarde dos formas. Local y nube.
-Para al ejecución local del proyecto se requiere cumplir con los requisitos anteriormente mensionados, Adicional, se deben realizar los siguientes pasos.
+Para al ejecución local del proyecto se requiere cumplir con los requisitos anteriormente mensionados, Adicional, se deben realizar los siguientes pasos: [Descargar archivos](https://1drv.ms/u/s!AoGek0GGPAXi6G1G0Vva6FTraR2b?e=xk9IFU)
 1. En una instancia de SQL Server crear una base de datos llamada ChoucairBD.
 2. Ejecutar los scripts que se encuentran en la carpeta Local/Scripts
 3. Crear un sitio en IIS para el API. importante que el sitio este configurado para soportar aplicaciones en .NET 8 y adicional a ello que tenga acceso a la base de datos. [Ver guía](https://learn.microsoft.com/en-us/aspnet/core/tutorials/publish-to-iis?view=aspnetcore-8.0&tabs=visual-studio) 
