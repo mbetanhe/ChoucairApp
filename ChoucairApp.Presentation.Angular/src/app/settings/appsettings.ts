@@ -1,3 +1,3 @@
 export const appsettings = {
-    apiUrl : "https://localhost:7056/api/"
+    apiUrl : "https://choucairapi.azurewebsites.net/api/"
 }

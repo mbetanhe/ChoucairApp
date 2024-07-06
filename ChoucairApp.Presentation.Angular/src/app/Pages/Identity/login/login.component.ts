@@ -53,6 +53,7 @@ export class LoginComponent {
       },
         error:(errorRes) =>{;
           this.toastr.error("No se pudo establecer conexión")
+          console.log(errorRes);
         }
     });
   }
