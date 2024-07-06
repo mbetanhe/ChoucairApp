@@ -47,16 +47,20 @@ Finalmente, si se desea ejecuttar el proyecto utilizando el codigo fuente se deb
 1. En una instancia de SQL Server crear una base de datos llamada ChoucairBD.
 2. Ejecutar los scripts que se encuentran en la carpeta Local/Scripts
 3. Clonar el repositorio en la maquina donde se desea abrir el proyecto. Recomendado tener Visual Studio 2022 ó Visual Studio Code. 
-4. Iniciar el API o el proyecto ChoucairApp.Presentation.API para obtener la URL.
+4. Modificar el DefaultConnecion del archivo appSettings que se encuentra en el proyecto.
+```
+src\Presentation\ChoucairApp.Presentation.API\appsettings.ts
+```
+5. Iniciar el API o el proyecto ChoucairApp.Presentation.API para obtener la URL.
 ```
 Por defecto tiene las urls https://localhost:7056 y http://localhost:5199.
 ```
-5. Una vez se tenga la URL, en especial la que contenfga el protocolo https. Abrir el proyexcto de Angular e ir a la siguiente ruta:
+6. Una vez se tenga la URL, en especial la que contenfga el protocolo https. Abrir el proyexcto de Angular e ir a la siguiente ruta:
 ```
 src\settings\appsettings.ts
 ```
-6. En el archivo de la ruta establecida anteriormente, se debe cambiar la URL por la URL local del proyecto en ejecución sea desde el Visual Studio, servidor local o servidor en la nube.
-7. Iniciar el proyecto y probar
+7. En el archivo de la ruta establecida anteriormente, se debe cambiar la URL por la URL local del proyecto en ejecución sea desde el Visual Studio, servidor local o servidor en la nube.
+8. Iniciar el proyecto y probar
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
 
