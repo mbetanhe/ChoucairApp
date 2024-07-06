@@ -6,7 +6,9 @@ using MediatR;
 
 namespace ChoucairApp.Core.Application.CQRS.Queries
 {
-    public class GetAllTasksQuery : IRequest<IResult<IEnumerable<TaskDTO>>> { }
+    public class GetAllTasksQuery : IRequest<IResult<IEnumerable<TaskDTO>>> {
+        public string UserId { get; set; }
+    }
 
     public class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, IResult<IEnumerable<TaskDTO>>>
     {
@@ -17,7 +19,19 @@ namespace ChoucairApp.Core.Application.CQRS.Queries
 
         public async Task<IResult<IEnumerable<TaskDTO>>> Handle(GetAllTasksQuery request, CancellationToken cancellationToken)
         {
-            var data = _mapper.Map<List<TaskDTO>>(_context.Tasks.ToList());
+            IEnumerable<TaskDTO> data = from tk in _context.Tasks.ToList()
+                       join st in _context.Statuses.ToList() on tk.StatusID equals st.ID
+                       where tk.UserID == request.UserId
+                       select new TaskDTO()
+                       {
+                           ID = tk.ID,
+                           Descripcion = tk.Task_Description,
+                           Title = tk.Task_Title,
+                           EndDate = tk.Task_EndDate,
+                           StatusDesc = st.Status_Description,
+                           StatusId = tk.StatusID
+                       };
+            
             return await Result<IEnumerable<TaskDTO>>.SuccessAsync(data.ToList());
         }
     }

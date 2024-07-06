@@ -1,23 +1,23 @@
 
 using ChoucairApp.Core.Application;
 using ChoucairApp.Core.Application.Interfaces.Identity;
-using ChoucairApp.Core.Application.Interfaces;
 using ChoucairApp.Core.Application.Models;
-using ChoucairApp.Infrastructure;
-using ChoucairApp.Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using ChoucairApp.Core.Domain.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ChoucairApp.Infrastructure;
 using ChoucairApp.Infrastructure.Data;
+using ChoucairApp.Infrastructure.Services;
+using ChoucairApp.Presentation.API.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ChoucairApp.Presentation.API.Middlewares;
 
 namespace ChoucairApp.Presentation.API
 {
     public class Program
     {
+        protected const string Politica_CORS = "Politica.Anonima";
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -62,6 +62,18 @@ namespace ChoucairApp.Presentation.API
                 });
             #endregion
 
+            #region Seguridad
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy(Politica_CORS, conf =>
+                {
+                    conf.AllowAnyOrigin();
+                    conf.AllowAnyMethod();
+                    conf.AllowAnyHeader();
+                });
+            });
+            #endregion
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -76,6 +88,8 @@ namespace ChoucairApp.Presentation.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(Politica_CORS);
 
             app.UseAuthentication();
             app.UseAuthorization();

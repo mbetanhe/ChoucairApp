@@ -19,6 +19,7 @@ namespace ChoucairApp.Infrastructure.Configurations
             entity.Property(e => e.Task_EndDate).HasColumnName("Task_EndDate");
             entity.Property(e => e.Task_StartDate).HasColumnName("Task_StartDate");
             entity.Property(e => e.StatusID).HasColumnName("StatusID");
+            entity.Property(e => e.UserID).HasColumnName("UserID");
         }
     }
 }

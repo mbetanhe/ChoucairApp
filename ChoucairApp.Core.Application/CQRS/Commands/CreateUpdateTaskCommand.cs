@@ -29,6 +29,8 @@ namespace ChoucairApp.Core.Application.CQRS.Commands
             if (request.data.ID == 0)
             {
                 TaskEntity task = _mapper.Map<TaskEntity>(request.data);
+                task.Task_StartDate = DateTime.Now;
+                task.StatusID = 1;
                 _context.Tasks.Add(task);
                 await _context.SaveChanges();
                 return await Result<int>.SuccessAsync(task.ID, "Se ha creado la tarea con exito");

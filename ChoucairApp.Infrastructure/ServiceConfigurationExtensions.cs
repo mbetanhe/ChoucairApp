@@ -12,8 +12,7 @@ namespace ChoucairApp.Infrastructure
         {
             services.AddDbContext<ChoucairDbContext>(options =>
             options.UseSqlServer(
-                //configuration.GetConnectionString("DefaultConnection"),
-                "Server=.;Database=ChoucairBD;TrustServerCertificate=True;Trusted_Connection=True; MultipleActiveResultSets=True",
+                configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(ChoucairDbContext).Assembly.FullName)));
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ChoucairDbContext>());
 

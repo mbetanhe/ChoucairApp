@@ -1,6 +1,7 @@
 ﻿using ChoucairApp.Core.Application.CQRS.Queries;
 using ChoucairApp.Core.Application.DTOs;
 using ChoucairApp.Core.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -8,6 +9,7 @@ namespace ChoucairApp.Presentation.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StatusController : BaseApiController
     {
         [HttpGet]

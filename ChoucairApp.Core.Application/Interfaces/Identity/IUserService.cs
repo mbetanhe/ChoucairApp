@@ -9,6 +9,6 @@ namespace ChoucairApp.Core.Application.Interfaces.Identity
 
         Task<IResult<string>> RegisterAsync(RegisterDTO model);
 
-        Task<IResult<AuthenticationResponse>> GetTokenAsync(LoginDTO data);
+        Task<AuthenticationResponse> GetTokenAsync(LoginDTO data);
     }
 }

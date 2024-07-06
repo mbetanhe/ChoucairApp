@@ -1,13 +1,10 @@
-﻿using ChoucairApp.Core.Application.DTOs;
-using ChoucairApp.Core.Application.DTOs.Identity;
+﻿using ChoucairApp.Core.Application.DTOs.Identity;
 using ChoucairApp.Core.Application.Interfaces;
 using ChoucairApp.Core.Application.Interfaces.Identity;
 using ChoucairApp.Core.Application.Responses;
-using ChoucairApp.Infrastructure.Data;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Runtime.CompilerServices;
 
 namespace ChoucairApp.Presentation.API.Controllers.Identity
 {
@@ -16,10 +13,11 @@ namespace ChoucairApp.Presentation.API.Controllers.Identity
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-       
+
 
         public UserController(IUserService userService) => (_userService) = userService;
 
+        [Authorize]
         [HttpGet("Seed")]
         public async Task<IActionResult> Seed()
         {

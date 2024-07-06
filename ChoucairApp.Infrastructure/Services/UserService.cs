@@ -63,7 +63,7 @@ namespace ChoucairApp.Infrastructure.Services
             await _contextSeed.SeedEssentialsAsync(_userManager, _roleManager);
         }
 
-        public async Task<IResult<AuthenticationResponse>> GetTokenAsync(LoginDTO data)
+        public async Task<AuthenticationResponse> GetTokenAsync(LoginDTO data)
         {
             AuthenticationResponse authenticationResponse = new AuthenticationResponse();
             var user = await _userManager.FindByEmailAsync(data.Email);
@@ -71,7 +71,9 @@ namespace ChoucairApp.Infrastructure.Services
             {
                 authenticationResponse.IsAuthenticated = false;
                 authenticationResponse.Message = $"No existe el usuario {data.Email}.";
-                return Result<AuthenticationResponse>.Success(authenticationResponse);
+                // return Result<AuthenticationResponse>.Success(authenticationResponse);
+                return authenticationResponse;
+
             }
             if (await _userManager.CheckPasswordAsync(user, data.Password))
             {
@@ -79,14 +81,18 @@ namespace ChoucairApp.Infrastructure.Services
                 JwtSecurityToken jwtSecurityToken = await CreateJwtToken(user);
                 authenticationResponse.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
                 authenticationResponse.Email = user.Email;
+                authenticationResponse.Id = user.Id;
                 authenticationResponse.UserName = user.UserName;
                 var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
                 authenticationResponse.Roles = rolesList.ToList();
-                return Result<AuthenticationResponse>.Success(authenticationResponse);
+                //return Result<AuthenticationResponse>.Success(authenticationResponse);
+                return authenticationResponse;
             }
             authenticationResponse.IsAuthenticated = false;
             authenticationResponse.Message = $"Credenciales incorrectas para {user.Email}.";
-            return Result<AuthenticationResponse>.Success(authenticationResponse);
+            //return Result<AuthenticationResponse>.Success(authenticationResponse);
+
+            return authenticationResponse;
         }
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
         {

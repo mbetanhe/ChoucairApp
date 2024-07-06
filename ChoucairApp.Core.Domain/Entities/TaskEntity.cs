@@ -9,5 +9,6 @@ namespace ChoucairApp.Core.Domain.Entities
         public DateTime Task_EndDate { get; set; }
         public DateTime Task_StartDate { get; set; }
         public int StatusID { get; set; }
+        public string UserID { get; set; }  
     }
 }

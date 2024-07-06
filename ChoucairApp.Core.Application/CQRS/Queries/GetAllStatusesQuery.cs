@@ -6,7 +6,8 @@ using MediatR;
 
 namespace ChoucairApp.Core.Application.CQRS.Queries
 {
-    public class GetAllStatusesQuery : IRequest<IResult<IEnumerable<StatusesDTO>>> {}
+    public class GetAllStatusesQuery : IRequest<IResult<IEnumerable<StatusesDTO>>> {
+    }
 
     public class GetAllStatusesQueryHandler : IRequestHandler<GetAllStatusesQuery, IResult<IEnumerable<StatusesDTO>>>
     {

@@ -1,0 +1,83 @@
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Tareas</h1>
+        <p class="lead text-body-secondary">Administración de tareas del usuario.</p>
+        <p>
+          <a (click)="enableForm()" class="btn btn-primary my-2">Agregar tarea</a>
+        </p>
+      </div>
+    </div>
+    @if(IsCreating)
+    {
+        <form class="align-items-center" [formGroup]="formTask">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2">
+            <div class="col">
+                <div class="mb-3">
+                    <label  class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="txtTitulo" formControlName="Title" placeholder="Tarea de prueba">
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label  class="form-label">Fecha vencimiento</label>
+                    <input type="date" class="form-control" bsDatepicker id="fchCVencimiento" formControlName="EndDate">
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    <label  class="form-label">Descripcion</label>
+                    <textarea class="form-control" id="txtDesc" formControlName="Description" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-3">
+                    @if(EditMode){
+                        <button type="button" class="btn btn-sm btn-outline-primary my-5" (click)="UpdateTask(EditId)">Guardar</button>
+                    }
+                    @else{
+                        <button type="button" class="btn btn-sm btn-outline-primary my-5" (click)="CreateTask()">Guardar</button>
+                    }
+                    <button type="button" class="btn btn-sm btn-outline-primary mx-2 my-5" (click)="Cancel()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    }
+</section>
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+@if(!IsLoaded)
+{
+    <div class="alert alert-info" role="alert">
+        No hay información a mostrar
+      </div>
+}
+@else
+{
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        @for(task of taskList; track task){
+            <div class="col">
+                <div class="card shadow-sm">
+                  <svg class="bd-placeholder-img card-img-top" width="100%" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Titulo" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#0d6efd"/><text x="30%" y="50%" fill="#eceeef" dy=".3em">{{task.title}}</text></svg>
+                  <div class="card-body">
+                    <p class="card-text">{{task.descripcion}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-secondary">{{task.statusDesc}}</button>
+                        @if(task.statusId != 3)
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-success" (click)="completedTask(task.id)">Completar</button>
+                        }
+                        <button type="button" class="btn btn-sm btn-outline-warning" (click)="EnableEdit(task.id)">Editar</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="DeleteConfirmation(task.id)">Eliminar</button>
+                      </div>
+                      <small class="text-body-secondary">{{this.datepipe.transform(task.endDate, 'yyyy/MM/dd')}}</small>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+</div>

@@ -149,6 +149,11 @@ namespace ChoucairApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Task_Title");
 
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UserID");
+
                     b.HasKey("ID");
 
                     b.ToTable("Tasks", "system");
